@@ -1,6 +1,5 @@
 generator client {
   provider        = "prisma-client-js"
-  // 외래키 연동 설정
   previewFeatures = ["referentialIntegrity"]
 }
 
@@ -11,11 +10,46 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  phone     String?  @unique
-  email     String?  @unique
-  name      String
+  id        Int        @id @default(autoincrement())
+  name      String     @unique
+  email     String?    @unique
   avatar    String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  Magazine  Magazine[]
+}
+
+model Magazine {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int
+  content   Content[]
+
+  @@index([userId])
+}
+
+model Content {
+  id         Int      @id @default(autoincrement())
+  index      Int
+  imageURL   String
+  Magazine   Magazine @relation(fields: [magazineId], references: [id], onDelete: Cascade)
+  magazineId Int
+  Button     Button[]
+
+  @@index([magazineId])
+}
+
+model Button {
+  id        Int     @id @default(autoincrement())
+  startX    Float
+  startY    Float
+  endX      Float
+  endY      Float
+  linkURL   String
+  Content   Content @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  contentId Int
+
+  @@index([contentId])
 }
