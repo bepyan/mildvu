@@ -1,5 +1,7 @@
 import { MethodType } from '@types';
 import { NextApiHandler } from 'next';
+import { SERVER_MESSAGE } from './constants';
+import { withSession } from './withSession';
 
 type MethodConfig = {
   [method in MethodType]: NextApiHandler;
@@ -13,31 +15,34 @@ interface HandlerConfig {
 export const withHandler = ({
   public: publicHandlers = {},
   /**
-   * public에 이미 선언했다면 실행이 안됩니다.
+   * 같은 method일 경우 public이 우선으로 실행됩니다.
    */
   private: privateHandlers = {},
 }: HandlerConfig): NextApiHandler => {
-  return async (req, res) => {
+  return (req, res) => {
     const publicHandler = publicHandlers[req.method as MethodType];
     const privateHandler = privateHandlers[req.method as MethodType];
 
     try {
       if (publicHandler) {
-        return await publicHandler(req, res);
+        return publicHandler(req, res);
       }
 
       if (privateHandler) {
-        if (!req.session.user) {
-          return res.status(401).json({ ok: false, error: '인증이 필요합니다.' });
-        }
+        return withSession((req, res) => {
+          if (!req.session.user) {
+            res.status(401).json({ error: '인증이 필요합니다.' });
+            return;
+          }
 
-        return await privateHandler(req, res);
+          return privateHandler(req, res);
+        })(req, res);
       }
 
-      res.status(405).end();
+      res.status(405).json({ message: SERVER_MESSAGE.INVALID_REQUEST });
     } catch (error) {
       console.error(error);
-      return res.status(500).json({ error });
+      res.status(500).json({ message: SERVER_MESSAGE.SERVER_ERROR });
     }
   };
 };

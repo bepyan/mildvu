@@ -21,7 +21,9 @@ _axios.interceptors.request.use(
 _axios.interceptors.response.use(
   (res) => {
     if (process.env.NODE_ENV === 'development') {
-      console.log(`[ Fetch ${res.status} ] ${res.config.url}`);
+      console.groupCollapsed(`[ Fetch ${res.status} ] ${res.config.url}`);
+      console.log(res.data);
+      console.groupEnd();
     }
     return res;
   },
