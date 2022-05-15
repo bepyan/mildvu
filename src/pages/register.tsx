@@ -1,5 +1,5 @@
 import { Button, Input } from '@components';
-import { useMutation } from '@libs/client';
+import { useMutation } from '@hooks';
 import { User } from '@prisma/client';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';

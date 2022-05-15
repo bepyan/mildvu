@@ -14,7 +14,7 @@ export const middleware = (req: NextRequest, ev: NextFetchEvent) => {
       req.cookies.mildvu_session &&
       RESTRICT_ROUTES.some((route) => req.url.includes(route))
     ) {
-      return NextResponse.redirect(new URL('/dashboard', req.url));
+      return NextResponse.redirect(new URL(`/me`, req.url));
     } else if (
       !req.cookies.mildvu_session &&
       PUBLIC_ROUTES.every((route) => !req.url.includes(route))

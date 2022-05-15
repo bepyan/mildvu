@@ -1,4 +1,5 @@
-import { withHandler, withSession, _prisma } from '@libs/server';
+import { _prisma } from '@libs/server';
+import { withHandler } from '@middlewares';
 
 export default withHandler({
   private: {

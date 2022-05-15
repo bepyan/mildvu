@@ -1,5 +1,5 @@
 import { Button, Input, Layout, SEO } from '@components';
-import { useMutation } from '@libs/client';
+import { useMutation } from '@hooks';
 import { User } from '@prisma/client';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -15,9 +15,7 @@ const Page: NextPage = () => {
   const loginForm = useForm<LoginForm>();
   const loginMutation = useMutation({
     url: '/api/users/login',
-    onSuccess: () => {
-      router.replace('/dashboard');
-    },
+    onSuccess: () => router.replace(`/me`),
   });
 
   const onSubmitLogin = loginForm.handleSubmit((form) => {

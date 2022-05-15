@@ -19,8 +19,10 @@
     "baseUrl": "./src",
     "paths": {
       "@components": ["./components"],
+      "@hooks": ["./hooks"],
       "@libs/client": ["./libs/client"],
-      "@libs/server": ["./libs/server"]
+      "@libs/server": ["./libs/server"],
+      "@middlewares": ["./middlewares"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

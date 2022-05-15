@@ -1,4 +1,5 @@
-import { SERVER_MESSAGE, withHandler, withSession, _prisma } from '@libs/server';
+import { SERVER_MESSAGE, _prisma } from '@libs/server';
+import { withHandler, withSession } from 'middlewares';
 
 export default withHandler({
   public: {
@@ -20,7 +21,7 @@ export default withHandler({
       req.session.user = findedUser;
       await req.session.save();
 
-      res.json({});
+      res.json({ user: findedUser });
     }),
   },
 });

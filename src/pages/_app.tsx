@@ -3,18 +3,16 @@ import type { AppProps } from 'next/app';
 import { SWRConfig } from 'swr';
 import '../styles/globals.css';
 
-function MyApp({ Component, pageProps }: AppProps) {
+export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <SWRConfig
       value={{
         fetcher: (url: string) => _axios.get(url).then((res) => res.data),
       }}
     >
-      <div className="mx-auto w-full max-w-xl">
+      <div className="mx-auto h-screen w-screen max-w-xl">
         <Component {...pageProps} />
       </div>
     </SWRConfig>
   );
 }
-
-export default MyApp;
