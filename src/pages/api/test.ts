@@ -1,4 +1,4 @@
-import { withHandler } from '@libs/server';
+import { withHandler } from '@middlewares';
 
 export default withHandler({
   public: {

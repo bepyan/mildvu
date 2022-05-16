@@ -1,4 +1,5 @@
-import { checkUndefinedRequest, SERVER_MESSAGE, _prisma } from '@libs/server';
+import { _prisma, checkUndefinedRequest } from '@libs/server';
+import { SERVER_MESSAGE } from '@libs/server/constants';
 import { withHandler, withSession } from '@middlewares';
 
 export default withHandler({

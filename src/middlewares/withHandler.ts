@@ -1,6 +1,7 @@
+import { SERVER_MESSAGE } from '@libs/server/constants';
 import { MethodType } from '@types';
 import { NextApiHandler } from 'next';
-import { SERVER_MESSAGE } from './constants';
+
 import { withSession } from './withSession';
 
 type MethodConfig = {

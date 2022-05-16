@@ -6,7 +6,10 @@
   "trailingComma": "all",
   "printWidth": 90,
   "arrowParens": "always",
-  "orderedImports": true,
   "bracketSpacing": true,
-  "jsxBracketSameLine": false
+  "jsxBracketSameLine": false,
+
+  "importOrder": ["^[./]"],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
 }

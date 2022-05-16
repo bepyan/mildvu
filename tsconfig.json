@@ -20,8 +20,7 @@
     "paths": {
       "@components": ["./components"],
       "@hooks": ["./hooks"],
-      "@libs/client": ["./libs/client"],
-      "@libs/server": ["./libs/server"],
+      "@libs/*": ["./libs/*"],
       "@middlewares": ["./middlewares"]
     }
   },

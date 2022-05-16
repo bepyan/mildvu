@@ -1,8 +1,8 @@
 import { Button } from '@components';
 import { useLogout } from '@hooks';
 import { _prisma } from '@libs/server';
-import { Magazine, User } from '@prisma/client';
 import { withSessionSSR } from '@middlewares';
+import { Magazine, User } from '@prisma/client';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 

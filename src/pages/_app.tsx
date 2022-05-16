@@ -1,6 +1,7 @@
 import { _axios } from '@libs/client';
 import type { AppProps } from 'next/app';
 import { SWRConfig } from 'swr';
+
 import '../styles/globals.css';
 
 export default function MyApp({ Component, pageProps }: AppProps) {

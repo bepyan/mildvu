@@ -1,4 +1,5 @@
 import { NextApiResponse } from 'next';
+
 import { SERVER_MESSAGE } from './constants';
 
 export const checkUndefinedRequest = (res: NextApiResponse, req: any[]) => {
