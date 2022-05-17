@@ -9,6 +9,7 @@
     "lint": "next lint",
     "db:login": "pscale login",
     "db:connect": "pscale connect mildvu dev --port 8080",
+    "db:dev": "yarn db:login && yarn db:connect",
     "db:push": "npx prisma db push",
     "db:studio": "npx prisma studio",
     "prepare": "husky install"
