@@ -41,6 +41,7 @@ export default () => {
         <Input
           register={loginForm.register('publishKey', { required: true })}
           label="아이디"
+          autoFocus
           required
         />
         <Input
