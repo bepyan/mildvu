@@ -1,6 +1,6 @@
 import { cls } from '@libs/client';
 
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends React.ComponentProps<'button'> {
   size?: ButtonSize;
   kind?: ButtonKind;
   loading?: boolean;
