@@ -1,6 +1,6 @@
 import { _prisma } from '@libs/server';
 import { User } from '@prisma/client';
-import { SSGPage } from '@types';
+import { SSGProps } from '@types';
 import { GetStaticPaths, GetStaticPropsContext } from 'next';
 import { useRouter } from 'next/router';
 
@@ -41,7 +41,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
   };
 };
 
-const Page: SSGPage<typeof getStaticProps> = ({ user, magazines }) => {
+export default ({ user, magazines }: SSGProps<typeof getStaticProps>) => {
   const router = useRouter();
 
   return (
@@ -63,5 +63,3 @@ const Page: SSGPage<typeof getStaticProps> = ({ user, magazines }) => {
     </div>
   );
 };
-
-export default Page;

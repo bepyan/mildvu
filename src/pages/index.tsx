@@ -1,8 +1,7 @@
 import { Button, Layout, SEO } from '@components';
 import { useLogout } from '@hooks';
-import type { NextPage } from 'next';
 
-const Page: NextPage = () => {
+export default () => {
   const logout = useLogout();
 
   return (
@@ -19,5 +18,3 @@ const Page: NextPage = () => {
     </Layout>
   );
 };
-
-export default Page;

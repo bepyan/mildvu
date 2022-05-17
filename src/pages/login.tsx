@@ -1,14 +1,13 @@
 import { Button, Input, Layout, SEO } from '@components';
 import { useMutation } from '@hooks';
 import { User } from '@prisma/client';
-import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 type LoginForm = Pick<User, 'publishKey' | 'password'>;
 
-const Page: NextPage = () => {
+export default () => {
   const router = useRouter();
   const navToRegister = () => router.push('/register');
 
@@ -63,5 +62,3 @@ const Page: NextPage = () => {
     </Layout>
   );
 };
-
-export default Page;

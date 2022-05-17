@@ -1,8 +1,13 @@
 import { Button, Layout, SEO } from '@components';
 import { useLogout } from '@hooks';
-import type { NextPage } from 'next';
+import { SSRProps } from '@types';
+import type { GetServerSidePropsContext } from 'next';
 
-const Page: NextPage = () => {
+export const getServerSideProps = ({}: GetServerSidePropsContext) => {
+  return { props: { test: 'test' } };
+};
+
+export default ({ test }: SSRProps<typeof getServerSideProps>) => {
   const logout = useLogout();
 
   return (
@@ -10,7 +15,7 @@ const Page: NextPage = () => {
       <SEO title="Login" />
 
       <div className="text-center">
-        <h1 className="text-5xl font-bold text-purple-500">Mildvu</h1>
+        <h1 className="text-5xl font-bold text-purple-500">{test}</h1>
       </div>
 
       <Button kind="secondary" size="normal" {...logout}>
@@ -19,5 +24,3 @@ const Page: NextPage = () => {
     </Layout>
   );
 };
-
-export default Page;

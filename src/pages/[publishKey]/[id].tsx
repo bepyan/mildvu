@@ -1,4 +1,4 @@
-import { SSGPage } from '@types';
+import { SSGProps } from '@types';
 import { GetStaticPropsContext } from 'next';
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
@@ -10,8 +10,6 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
   };
 };
 
-const Page: SSGPage<typeof getStaticProps> = ({}) => {
+export default ({}: SSGProps<typeof getStaticProps>) => {
   return <div className="mt-32 px-4"></div>;
 };
-
-export default Page;

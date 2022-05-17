@@ -2,7 +2,7 @@ import { Button } from '@components';
 import { useLogout } from '@hooks';
 import { _prisma } from '@libs/server';
 import { withUserSesstionSSR } from '@middlewares';
-import { SSRPage } from '@types';
+import { SSRProps } from '@types';
 import { useRouter } from 'next/router';
 
 export const getServerSideProps = withUserSesstionSSR(async ({ user }) => {
@@ -16,7 +16,7 @@ export const getServerSideProps = withUserSesstionSSR(async ({ user }) => {
   };
 });
 
-const Page: SSRPage<typeof getServerSideProps> = ({ user, magazines }) => {
+export default ({ user, magazines }: SSRProps<typeof getServerSideProps>) => {
   const logout = useLogout();
 
   const router = useRouter();
@@ -49,5 +49,3 @@ const Page: SSRPage<typeof getServerSideProps> = ({ user, magazines }) => {
     </div>
   );
 };
-
-export default Page;
