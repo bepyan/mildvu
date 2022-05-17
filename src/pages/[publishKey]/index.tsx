@@ -1,3 +1,4 @@
+import { Layout } from '@components';
 import { _prisma } from '@libs/server';
 import { User } from '@prisma/client';
 import { SSGProps } from '@types';
@@ -45,7 +46,7 @@ export default ({ user, magazines }: SSGProps<typeof getStaticProps>) => {
   const router = useRouter();
 
   return (
-    <div className="relative h-full px-4 pt-32">
+    <Layout title={user.publishKey} className="relative h-full px-4 pt-32">
       <div className="flex items-end">
         <div>
           <h1 className="text-xl font-bold text-purple-500">{user.name}</h1>
@@ -60,6 +61,6 @@ export default ({ user, magazines }: SSGProps<typeof getStaticProps>) => {
           magazines.map((v) => <div key={v.id}>{v.createdAt.toLocaleString()}</div>)
         )}
       </div>
-    </div>
+    </Layout>
   );
 };

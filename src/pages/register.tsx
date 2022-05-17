@@ -1,4 +1,4 @@
-import { Button, Input } from '@components';
+import { Button, Input, Layout } from '@components';
 import { useMutation } from '@hooks';
 import { User } from '@prisma/client';
 import { useRouter } from 'next/router';
@@ -25,7 +25,7 @@ export default () => {
   });
 
   return (
-    <div className="mt-32 space-y-4 px-4">
+    <Layout title="회원가입" className="mt-32 space-y-4 px-4">
       <div className="text-center">
         <h1 className="text-5xl font-bold text-purple-500">Mildvu</h1>
       </div>
@@ -56,6 +56,6 @@ export default () => {
           로그인
         </Button>
       </form>
-    </div>
+    </Layout>
   );
 };

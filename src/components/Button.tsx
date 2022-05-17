@@ -21,7 +21,7 @@ export const Button = ({
       {...props}
       onClick={() => onClick?.()}
       className={cls(
-        'w-full rounded-md border border-transparent px-4 font-medium shadow-sm',
+        'box-border w-full rounded-md border border-transparent px-4 font-medium shadow-sm',
         'focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2',
         buttonKinds[kind],
         buttonSizes[size],

@@ -1,21 +1,22 @@
+import { cls } from '@libs/client';
 import type { UseFormRegisterReturn } from 'react-hook-form';
 
 interface InputProps {
+  className?: string;
   label?: string;
   kind?: 'text' | 'phone' | 'price';
   type?: string;
   register: UseFormRegisterReturn;
   required?: boolean;
-  className?: string;
+  placeholder?: string;
 }
 
 export const Input = ({
+  className,
   label,
   kind = 'text',
-  type,
-  required,
   register,
-  className,
+  ...props
 }: InputProps) => {
   return (
     <div className={className}>
@@ -31,9 +32,11 @@ export const Input = ({
         <div className="relative flex items-center rounded-md shadow-sm">
           <input
             id={register.name}
-            required={required}
-            type={type}
-            className="w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-purple-500 focus:outline-none focus:ring-purple-500"
+            {...props}
+            className={cls(
+              'w-full appearance-none rounded-md border px-3 py-2 shadow-sm focus:outline-none ',
+              'border-gray-300 placeholder-gray-400 focus:border-purple-500 focus:ring-purple-500',
+            )}
             autoComplete="on"
             {...register}
           />

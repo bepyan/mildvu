@@ -1,4 +1,4 @@
-import { Button, Layout, SEO } from '@components';
+import { Button, Layout } from '@components';
 import { useLogout } from '@hooks';
 import { SSRProps } from '@types';
 import type { GetServerSidePropsContext } from 'next';
@@ -11,9 +11,7 @@ export default ({ test }: SSRProps<typeof getServerSideProps>) => {
   const logout = useLogout();
 
   return (
-    <Layout className="mt-32 space-y-4 px-4">
-      <SEO title="Login" />
-
+    <Layout title="만들기" className="mt-32 space-y-4 px-4">
       <div className="text-center">
         <h1 className="text-5xl font-bold text-purple-500">{test}</h1>
       </div>

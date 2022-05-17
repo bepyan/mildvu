@@ -1,4 +1,4 @@
-import { Button } from '@components';
+import { Button, Layout } from '@components';
 import { useLogout } from '@hooks';
 import { _prisma } from '@libs/server';
 import { withUserSesstionSSR } from '@middlewares';
@@ -22,7 +22,7 @@ export default ({ user, magazines }: SSRProps<typeof getServerSideProps>) => {
   const router = useRouter();
 
   return (
-    <div className="relative h-full px-4 pt-32">
+    <Layout title="대시보드" className="relative h-full px-4 pt-32">
       <div className="flex items-end">
         <div>
           <h1 className="text-xl font-bold text-purple-500">{user.name}</h1>
@@ -43,9 +43,9 @@ export default ({ user, magazines }: SSRProps<typeof getServerSideProps>) => {
         )}
       </div>
 
-      <div className="absolute bottom-32 w-full ">
+      <div className="absolute inset-x-4 bottom-32">
         <Button>매거진 생성하기</Button>
       </div>
-    </div>
+    </Layout>
   );
 };

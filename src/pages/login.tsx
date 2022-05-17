@@ -1,4 +1,4 @@
-import { Button, Input, Layout, SEO } from '@components';
+import { Button, Input, Layout } from '@components';
 import { useMutation } from '@hooks';
 import { User } from '@prisma/client';
 import { useRouter } from 'next/router';
@@ -32,9 +32,7 @@ export default () => {
   }, [loginForm.watch]);
 
   return (
-    <Layout className="mt-32 space-y-4 px-4">
-      <SEO title="Login" />
-
+    <Layout title="로그인" className="mt-32 space-y-4 px-4">
       <div className="text-center">
         <h1 className="text-5xl font-bold text-purple-500">Mildvu</h1>
       </div>
