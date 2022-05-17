@@ -1,17 +1,22 @@
 import { Button } from '@components';
 import { useLogout } from '@hooks';
 import { _prisma } from '@libs/server';
-import { withSessionSSR } from '@middlewares';
-import { Magazine, User } from '@prisma/client';
-import { NextPage } from 'next';
+import { withUserSesstionSSR } from '@middlewares';
+import { SSRPage } from '@types';
 import { useRouter } from 'next/router';
 
-interface PageProps {
-  user: User;
-  magazines: Magazine[];
-}
+export const getServerSideProps = withUserSesstionSSR(async ({ user }) => {
+  const magazines = await _prisma.magazine.findMany({
+    where: { userId: user.id },
+    include: { content: true },
+  });
 
-const Page: NextPage<PageProps> = ({ user, magazines }) => {
+  return {
+    props: { user, magazines },
+  };
+});
+
+const Page: SSRPage<typeof getServerSideProps> = ({ user, magazines }) => {
   const logout = useLogout();
 
   const router = useRouter();
@@ -44,30 +49,5 @@ const Page: NextPage<PageProps> = ({ user, magazines }) => {
     </div>
   );
 };
-
-export const getServerSideProps = withSessionSSR(async ({ req }) => {
-  const user = req.session.user;
-  if (!user) {
-    req.session.destroy();
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: true,
-      },
-    };
-  }
-
-  const magazines = await _prisma.magazine.findMany({
-    where: { userId: user.id },
-    include: { content: true },
-  });
-
-  return {
-    props: {
-      user,
-      magazines,
-    },
-  };
-});
 
 export default Page;
