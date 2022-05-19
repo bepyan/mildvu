@@ -18,6 +18,20 @@ export default () => {
     [currentIndex],
   );
 
+  const mouseMoveHandler = (e: MouseEvent) => {
+    console.log(e.pageX);
+  };
+  const mouseDownHandler = () => {
+    document.addEventListener('mousemove', mouseMoveHandler);
+    document.addEventListener('mouseup', () =>
+      document.removeEventListener('mousemove', mouseMoveHandler),
+    );
+  };
+
+  const touchMoveHandler = (e: React.TouchEvent<HTMLDivElement>) => {
+    console.log(e.changedTouches[0].pageX);
+  };
+
   return (
     <Layout title="preview" className="pt-16 ">
       <div className=" text-center">
@@ -25,7 +39,12 @@ export default () => {
       </div>
 
       <div className="relative mt-16 h-[700px] w-full overflow-hidden">
-        <div className="absolute flex h-full w-full" style={transformStyle}>
+        <div
+          className="absolute flex h-full w-full"
+          style={transformStyle}
+          onMouseDown={mouseDownHandler}
+          onTouchMove={touchMoveHandler}
+        >
           {imgs.map((v, i) => {
             return (
               <div key={i} className="h-full w-full" data-index={i - 1}>
