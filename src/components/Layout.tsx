@@ -14,7 +14,7 @@ export default function Layout({ className, children, title }: LayoutProps) {
         <title>{!title ? 'Mildvu' : `${title} | Mildvu`}</title>
       </Head>
 
-      <div className={cls(className)}>{children}</div>
+      <div className={cls('flex flex-1 flex-col', className)}>{children}</div>
     </>
   );
 }

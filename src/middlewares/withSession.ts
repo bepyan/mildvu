@@ -39,7 +39,7 @@ export const withSession = (fn: NextApiHandler) => {
  *
  * ```ts
  * export const getServerSideProps = withSessionSSR(({ req }) => {
- *  const user = req.sesstion.user;
+ *  const user = req.session.user;
  *  return {
  *    props: { user }
  *  }
@@ -60,14 +60,14 @@ export const withSessionSSR = <
  * 로그인 되지 않으면 로그인 페이지로 이동하게 됩니다.
  *
  * ```ts
- * export const getServerSideProps = withUserSesstionSSR(({ user }) => {
+ * export const getServerSideProps = withUserSessionSSR(({ user }) => {
  *  return {
  *    props: { user }
  *  }
  * });
  * ```
  */
-export const withUserSesstionSSR = <
+export const withUserSessionSSR = <
   P extends { [key: string]: unknown } = { [key: string]: unknown },
 >(
   fn: (context: { user: User } & GetServerSidePropsContext) => SSRPropsResult<P>,

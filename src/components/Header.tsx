@@ -1,36 +1,44 @@
-import { useLogout } from '@hooks';
-import { User } from '@prisma/client';
+import { useLogout, useUser } from '@hooks';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Button from './Button';
 
-export interface HeaderProps {
-  user?: User;
-  className?: string;
-}
-
-export default function Header({ user, className }: HeaderProps) {
+export default function Header() {
+  const { user, isLoading } = useUser();
   const logout = useLogout();
   const router = useRouter();
 
+  const navToHome = () => router.push('/');
   const navToLogin = () => router.push('/login');
-  const navToMe = () => router.push('/me');
 
   return (
-    <div className="flex justify-end py-4">
-      <h5 className="text-4xl font-bold text-purple-500">Mildvu</h5>
-      <div className="ml-auto flex items-center space-x-4">
-        {user ? (
-          <>
-            <a className="w-24" onClick={navToMe}>
-              내 정보
-            </a>
-            <Button kind="secondary" size="normal" {...logout}>
-              로그아웃
-            </Button>
-          </>
+    <div className="flex items-end py-4">
+      <div className="cursor-pointer" onClick={navToHome}>
+        <h5 className="text-4xl font-bold text-purple-500">Mildvu</h5>
+      </div>
+
+      <div className="ml-4 flex items-end">
+        {isLoading ? (
+          <></>
+        ) : !user ? (
+          <></>
         ) : (
+          <>
+            <Link href="/me">내 매거진</Link>
+          </>
+        )}
+      </div>
+
+      <div className="ml-auto flex items-end">
+        {isLoading ? (
+          <></>
+        ) : !user ? (
           <Button kind="secondary" size="normal" onClick={navToLogin}>
             로그인 / 회원가입
+          </Button>
+        ) : (
+          <Button kind="secondary" size="normal" {...logout}>
+            로그아웃
           </Button>
         )}
       </div>

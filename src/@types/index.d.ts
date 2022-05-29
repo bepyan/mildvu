@@ -20,7 +20,7 @@ declare module '@types' {
    *   return { props: {} };
    * };
    *
-   * export const getServerSideProps = withUserSesstionSSR(({ user }) => {
+   * export const getServerSideProps = withUserSessionSSR(({ user }) => {
    *   return { props: { user }};
    * });
    *

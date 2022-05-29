@@ -5,12 +5,11 @@ export const useWidth = (ref: React.RefObject<HTMLDivElement>) => {
 
   useEffect(() => {
     const handleResize = () => {
-      console.log('width');
       setWidth(ref.current?.offsetWidth || 0);
     };
 
+    handleResize();
     window.addEventListener('resize', handleResize);
-    window.addEventListener('load', handleResize, { once: true });
     return () => window.removeEventListener('resize', handleResize);
   }, [ref]);
 

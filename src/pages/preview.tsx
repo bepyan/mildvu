@@ -23,12 +23,8 @@ export default () => {
   } = useCarousel({ slideWidth, slideLength: imgs.length });
 
   return (
-    <Layout title="preview" className="pt-16 ">
-      <div className=" text-center">
-        <h1 className="text-5xl font-bold text-purple-500">Mildvu</h1>
-      </div>
-
-      <div className="relative mt-16 h-[700px] w-full overflow-hidden">
+    <Layout title="preview">
+      <div className="relative flex-1 overflow-hidden">
         <div
           ref={sliderRef}
           className="absolute flex h-full w-full"
@@ -43,11 +39,7 @@ export default () => {
                   className="pointer-events-none select-none"
                   style={{ width: slideWidth }}
                 >
-                  <img
-                    src={v}
-                    alt="card-imgs"
-                    className="max-h-max max-w-max object-cover"
-                  />
+                  <img src={v} alt="card-imgs" className="object-cover" />
                 </div>
               </div>
             );
