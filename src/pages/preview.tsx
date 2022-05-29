@@ -1,6 +1,7 @@
 import Button from '@components/Button';
 import Layout from '@components/Layout';
-import { useMemo, useState } from 'react';
+import { useCarousel, useWidth } from '@hooks';
+import { useRef } from 'react';
 
 const imgs = [
   'https://www.nemopan.com/files/attach/images/6294/386/211/014/a04168af65afb12afa1936a98d372e1d.jpeg',
@@ -9,29 +10,17 @@ const imgs = [
 ];
 
 export default () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const sliderRef = useRef<HTMLDivElement>(null);
+  const slideWidth = useWidth(sliderRef);
 
-  const transformStyle = useMemo(
-    () => ({
-      transform: `translateX(${-100 * (currentIndex + 1)}%)`,
-      transition: `transform 300ms ease-in-out 0s`,
-    }),
-    [currentIndex],
-  );
-
-  const mouseMoveHandler = (e: MouseEvent) => {
-    console.log(e.offsetX);
-  };
-  const mouseDownHandler = () => {
-    document.addEventListener('mousemove', mouseMoveHandler);
-    document.addEventListener('mouseup', () =>
-      document.removeEventListener('mousemove', mouseMoveHandler),
-    );
-  };
-
-  const touchMoveHandler = (e: React.TouchEvent<HTMLDivElement>) => {
-    console.log(e.changedTouches[0].pageX);
-  };
+  const {
+    transformStyle,
+    transitionStyle,
+    moveNext,
+    movePrev,
+    mouseDownHandler,
+    touchStartHandler,
+  } = useCarousel({ slideWidth, slideLength: imgs.length });
 
   return (
     <Layout title="preview" className="pt-16 ">
@@ -41,16 +30,20 @@ export default () => {
 
       <div className="relative mt-16 h-[700px] w-full overflow-hidden">
         <div
+          ref={sliderRef}
           className="absolute flex h-full w-full"
-          style={transformStyle}
+          style={{ ...transformStyle, ...transitionStyle }}
           onMouseDown={mouseDownHandler}
-          onTouchMove={touchMoveHandler}
+          onTouchStart={touchStartHandler}
         >
           {imgs.map((v, i) => {
             return (
-              <div key={i} className="h-full w-full" data-index={i - 1}>
-                <div className="pointer-events-none w-[576px] select-none">
-                  <img src={v} alt="" className=" h-auto w-full " />
+              <div key={i} className="h-full w-full">
+                <div
+                  className="pointer-events-none select-none"
+                  style={{ width: slideWidth }}
+                >
+                  <img src={v} alt="card-imgs" className=" h-auto w-full " />
                 </div>
               </div>
             );
@@ -58,10 +51,10 @@ export default () => {
         </div>
       </div>
 
-      <Button className="mt-2" onClick={() => setCurrentIndex((v) => v - 1)}>
+      <Button className="mt-2" onClick={movePrev}>
         prev
       </Button>
-      <Button className="mt-2" onClick={() => setCurrentIndex((v) => v + 1)}>
+      <Button className="mt-2" onClick={moveNext}>
         next
       </Button>
     </Layout>
