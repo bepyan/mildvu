@@ -7,7 +7,7 @@ export interface LayoutProps {
   title?: string;
 }
 
-export const Layout = ({ className, children, title }: LayoutProps) => {
+export default function Layout({ className, children, title }: LayoutProps) {
   return (
     <>
       <Head>
@@ -17,4 +17,4 @@ export const Layout = ({ className, children, title }: LayoutProps) => {
       <div className={cls(className)}>{children}</div>
     </>
   );
-};
+}

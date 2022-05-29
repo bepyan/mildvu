@@ -1,4 +1,5 @@
-import { Button, Layout } from '@components';
+import Button from '@components/Button';
+import Layout from '@components/Layout';
 import { useMemo, useState } from 'react';
 
 const imgs = [
@@ -19,7 +20,7 @@ export default () => {
   );
 
   const mouseMoveHandler = (e: MouseEvent) => {
-    console.log(e.pageX);
+    console.log(e.offsetX);
   };
   const mouseDownHandler = () => {
     document.addEventListener('mousemove', mouseMoveHandler);

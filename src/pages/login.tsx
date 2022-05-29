@@ -1,9 +1,14 @@
-import { Button, Input, Layout } from '@components';
+import Button from '@components/Button';
+import Input from '@components/Input';
+import Layout from '@components/Layout';
 import { useMutation } from '@hooks';
+import { withRestrictSesstionSSR } from '@middlewares';
 import { User } from '@prisma/client';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+
+export const getServerSideProps = withRestrictSesstionSSR();
 
 type LoginForm = Pick<User, 'publishKey' | 'password'>;
 

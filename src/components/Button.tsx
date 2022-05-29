@@ -8,14 +8,14 @@ export interface ButtonProps extends React.ComponentProps<'button'> {
   onClick?: () => void;
 }
 
-export const Button = ({
+export default function Button({
   size = 'large',
   kind = 'primary',
   loading,
   children,
   onClick,
   ...props
-}: ButtonProps) => {
+}: ButtonProps) {
   return (
     <button
       {...props}
@@ -32,7 +32,7 @@ export const Button = ({
       {loading ? '...' : children}
     </button>
   );
-};
+}
 
 const buttonKinds = {
   primary: 'text-white bg-purple-500 hover:bg-purple-600',

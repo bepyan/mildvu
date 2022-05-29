@@ -86,3 +86,25 @@ export const withUserSesstionSSR = <
     return fn({ ...context, user });
   });
 };
+
+export const withRestrictSesstionSSR = (
+  fn: (
+    context: GetServerSidePropsContext,
+  ) => SSRPropsResult<{ [key: string]: unknown }> = () => ({
+    props: {},
+  }),
+) => {
+  return withSessionSSR((context) => {
+    const user = context.req.session.user;
+    if (user) {
+      return {
+        redirect: {
+          destination: '/',
+          permanent: true,
+        },
+      };
+    }
+
+    return fn({ ...context });
+  });
+};

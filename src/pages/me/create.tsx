@@ -1,4 +1,5 @@
-import { Button, Layout } from '@components';
+import Button from '@components/Button';
+import Layout from '@components/Layout';
 import { useLogout } from '@hooks';
 import { SSRProps } from '@types';
 import type { GetServerSidePropsContext } from 'next';

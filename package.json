@@ -8,13 +8,15 @@
     "start": "next start",
     "lint": "next lint",
     "db:login": "pscale login",
-    "db:connect": "pscale connect mildvu dev --port 8080",
-    "db:dev": "yarn db:login && yarn db:connect",
+    "db:connect": "pscale connect mildvu --port 8080",
+    "db:dev": "yarn db:login && yarn db:connect dev",
     "db:push": "npx prisma db push",
     "db:studio": "npx prisma studio",
     "prepare": "husky install"
   },
   "dependencies": {
+    "@headlessui/react": "^1.6.3",
+    "@heroicons/react": "^1.0.6",
     "@prisma/client": "^3.13.0",
     "axios": "^0.27.2",
     "iron-session": "^6.1.3",

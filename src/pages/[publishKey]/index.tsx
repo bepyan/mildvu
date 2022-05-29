@@ -1,5 +1,5 @@
-import { Layout } from '@components';
-import { _prisma } from '@libs/server';
+import Layout from '@components/Layout';
+import _prisma from '_prisma';
 import { User } from '@prisma/client';
 import { SSGProps } from '@types';
 import { GetStaticPaths, GetStaticPropsContext } from 'next';

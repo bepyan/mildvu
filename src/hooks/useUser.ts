@@ -7,15 +7,15 @@ interface ProfileResponse {
   user: User;
 }
 
-export const useUser = () => {
+export const useUser = ({ redirect = false } = {}) => {
   const router = useRouter();
   const { data, error } = useSWR<ProfileResponse>('/api/users/me');
 
   useEffect(() => {
-    if (!data && error) {
+    if (!data && error && redirect) {
       router.replace('/login');
     }
-  }, [data, router]);
+  }, [data, error, redirect, router]);
 
   return { user: data?.user, isLoading: !data && !error };
 };

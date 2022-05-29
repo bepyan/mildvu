@@ -7,13 +7,13 @@ interface InputProps extends React.ComponentProps<'input'> {
   register: UseFormRegisterReturn;
 }
 
-export const Input = ({
+export default function Input({
   className,
   label,
   kind = 'text',
   register,
   ...props
-}: InputProps) => {
+}: InputProps) {
   return (
     <div className={className}>
       {label && (
@@ -38,4 +38,4 @@ export const Input = ({
       </div>
     </div>
   );
-};
+}

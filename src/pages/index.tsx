@@ -1,18 +1,30 @@
-import { Button, Layout } from '@components';
+import _prisma from '_prisma';
+import Button from '@components/Button';
+import Layout from '@components/Layout';
 import { useLogout } from '@hooks';
+import { withSessionSSR } from '@middlewares';
+import { SSRProps } from '@types';
+import { useRouter } from 'next/router';
+import Header from '@components/Header';
 
-export default () => {
+export const getServerSideProps = withSessionSSR(({ req }) => {
+  const user = req.session.user;
+
+  return {
+    props: { user },
+  };
+});
+
+export default ({ user }: SSRProps<typeof getServerSideProps>) => {
   const logout = useLogout();
+  const router = useRouter();
+
+  const navToLogin = () => router.push('/login');
 
   return (
     <Layout>
-      <div className="text-center">
-        <h1 className="text-5xl font-bold text-purple-500">Mildvu</h1>
-      </div>
-
-      <Button kind="secondary" size="normal" {...logout}>
-        로그아웃
-      </Button>
+      <Header user={user} />
+      <div className="mt-4">content</div>
     </Layout>
   );
 };

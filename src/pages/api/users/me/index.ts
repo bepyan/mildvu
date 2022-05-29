@@ -1,4 +1,4 @@
-import { _prisma } from '@libs/server';
+import _prisma from '_prisma';
 import { SERVER_MESSAGE } from '@libs/server/constants';
 import { withHandler, withSession } from '@middlewares';
 

@@ -1,9 +1,9 @@
-import { Button, Layout } from '@components';
+import _prisma from '_prisma';
+import Button from '@components/Button';
+import Layout from '@components/Layout';
 import { useLogout } from '@hooks';
-import { _prisma } from '@libs/server';
 import { withUserSesstionSSR } from '@middlewares';
 import { SSRProps } from '@types';
-import { useRouter } from 'next/router';
 
 export const getServerSideProps = withUserSesstionSSR(async ({ user }) => {
   const magazines = await _prisma.magazine.findMany({
@@ -18,8 +18,6 @@ export const getServerSideProps = withUserSesstionSSR(async ({ user }) => {
 
 export default ({ user, magazines }: SSRProps<typeof getServerSideProps>) => {
   const logout = useLogout();
-
-  const router = useRouter();
 
   return (
     <Layout title="대시보드" className="relative h-full px-4 pt-32">
