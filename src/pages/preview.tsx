@@ -5,8 +5,8 @@ import { useRef } from 'react';
 
 const imgs = [
   'https://www.nemopan.com/files/attach/images/6294/386/211/014/a04168af65afb12afa1936a98d372e1d.jpeg',
-  'https://www.nemopan.com/files/attach/images/6294/386/211/014/f2b6641879ea73de2fac8c957b624740.jpeg',
   'https://www.nemopan.com/files/attach/images/6294/386/211/014/542dea3664436d543c3f273cea26dbda.jpeg',
+  'https://www.nemopan.com/files/attach/images/6294/386/211/014/f2b6641879ea73de2fac8c957b624740.jpeg',
 ];
 
 export default () => {
@@ -38,12 +38,16 @@ export default () => {
         >
           {imgs.map((v, i) => {
             return (
-              <div key={i} className="h-full w-full">
+              <div key={i} className="w-full">
                 <div
                   className="pointer-events-none select-none"
                   style={{ width: slideWidth }}
                 >
-                  <img src={v} alt="card-imgs" className=" h-auto w-full " />
+                  <img
+                    src={v}
+                    alt="card-imgs"
+                    className="max-h-max max-w-max object-cover"
+                  />
                 </div>
               </div>
             );
