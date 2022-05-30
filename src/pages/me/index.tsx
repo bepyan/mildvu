@@ -3,6 +3,7 @@ import Button from '@components/Button';
 import Layout from '@components/Layout';
 import { withUserSessionSSR } from '@middlewares';
 import { SSRProps } from '@types';
+import { useRouter } from 'next/router';
 
 export const getServerSideProps = withUserSessionSSR(async ({ user }) => {
   const magazines = await _prisma.magazine.findMany({
@@ -16,6 +17,10 @@ export const getServerSideProps = withUserSessionSSR(async ({ user }) => {
 });
 
 export default ({ user, magazines }: SSRProps<typeof getServerSideProps>) => {
+  const router = useRouter();
+
+  const navToCreate = () => router.push('/me/create');
+
   return (
     <Layout title="대시보드" className="relative">
       <div className="mt-4 flex items-end rounded-xl p-6 ring-1 ring-purple-300">
@@ -36,8 +41,8 @@ export default ({ user, magazines }: SSRProps<typeof getServerSideProps>) => {
         )}
       </div>
 
-      <div className="absolute inset-x-4 bottom-32">
-        <Button>매거진 생성하기</Button>
+      <div className="absolute inset-x-0 bottom-32">
+        <Button onClick={navToCreate}>매거진 생성하기</Button>
       </div>
     </Layout>
   );
