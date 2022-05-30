@@ -16,6 +16,7 @@ model User {
   password   String
   email      String?
   avatar     String?
+  certified  Boolean    @default(false)
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
   Magazine   Magazine[]
@@ -49,6 +50,7 @@ model Button {
   startY    Float
   endX      Float
   endY      Float
+  imageURL  String
   linkURL   String
   Content   Content @relation(fields: [contentId], references: [id], onDelete: Cascade)
   contentId Int
