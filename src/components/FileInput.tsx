@@ -5,7 +5,6 @@ import { useForm } from 'react-hook-form';
 interface FileForm {
   image?: FileList;
 }
-
 interface FileInputProps {
   className?: string;
   setPreview: (preview: string) => void;

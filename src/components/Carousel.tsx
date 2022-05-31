@@ -1,15 +1,11 @@
 import { useCarousel, useWidth } from '@hooks';
 import { cls } from '@libs/client';
-import { Button, Content } from '@prisma/client';
+import { ContentWithLinker } from '@types';
 import { useRef } from 'react';
-
-interface ContentWithButton extends Content {
-  buttons: Button[];
-}
 
 export interface CarouselInterface {
   className?: string;
-  contentList: ContentWithButton[];
+  contentList: ContentWithLinker[];
 }
 
 export default function Carousel({ className, contentList }: CarouselInterface) {
@@ -54,7 +50,7 @@ export default function Carousel({ className, contentList }: CarouselInterface) 
                   />
                 )}
 
-                {content.buttons.map((bt, j) => (
+                {content.linkers.map((bt, j) => (
                   <div
                     key={j}
                     onClick={() => openPage(bt.linkURL)}

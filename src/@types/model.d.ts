@@ -1,11 +1,11 @@
-import { Button, Content, Magazine } from '@prisma/client';
+import { Content, Linker, Magazine } from '@prisma/client';
 
 declare module '@types' {
   interface MagazineWithContent extends Magazine {
-    content: ContentWithButton[];
+    content: ContentWithLinker[];
   }
 
-  interface ContentWithButton extends Content {
-    buttons: Button[];
+  interface ContentWithLinker extends Content {
+    linkers: Linker[];
   }
 }

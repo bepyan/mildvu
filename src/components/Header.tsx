@@ -1,9 +1,14 @@
 import { useLogout, useUser } from '@hooks';
+import { cls } from '@libs/client';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Button from './Button';
 
-export default function Header() {
+interface HeaderProps {
+  className?: string;
+}
+
+export default function Header({ className }: HeaderProps) {
   const { user, isLoading } = useUser();
   const logout = useLogout();
   const router = useRouter();
@@ -12,7 +17,7 @@ export default function Header() {
   const navToLogin = () => router.push('/login');
 
   return (
-    <div className="flex items-end py-4">
+    <div className={cls('flex items-end py-4', className)}>
       <div className="cursor-pointer" onClick={navToHome}>
         <h5 className="text-4xl font-bold text-purple-500">Mildvu</h5>
       </div>

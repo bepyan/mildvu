@@ -28,7 +28,7 @@ export default function Input({
         <input
           id={register.name}
           className={cls(
-            'w-full appearance-none rounded-md border px-3 py-2 shadow-sm focus:outline-none ',
+            'w-full appearance-none rounded-md border px-3 py-2 shadow-sm focus:outline-none',
             'border-gray-300 placeholder-gray-400 focus:border-purple-500 focus:ring-purple-500',
           )}
           autoComplete="on"

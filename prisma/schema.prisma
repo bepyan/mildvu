@@ -39,18 +39,17 @@ model Content {
   imageURL   String
   Magazine   Magazine @relation(fields: [magazineId], references: [id], onDelete: Cascade)
   magazineId Int
-  Button     Button[]
+  Linker     Linker[]
 
   @@index([magazineId])
 }
 
-model Button {
+model Linker {
   id        Int     @id @default(autoincrement())
   startX    Float
   startY    Float
   endX      Float
   endY      Float
-  imageURL  String
   linkURL   String
   Content   Content @relation(fields: [contentId], references: [id], onDelete: Cascade)
   contentId Int
