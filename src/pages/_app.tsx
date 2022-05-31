@@ -3,7 +3,6 @@ import { _axios } from '@libs/client';
 import type { AppProps } from 'next/app';
 import { SWRConfig } from 'swr';
 import Head from 'next/head';
-import Header from '@components/Header';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -19,7 +18,6 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
       </Head>
       <main className="mx-auto flex h-screen w-screen max-w-xl flex-col">
-        <Header />
         <Component {...pageProps} />
       </main>
     </SWRConfig>

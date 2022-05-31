@@ -37,7 +37,7 @@ export default () => {
   }, [loginForm.watch]);
 
   return (
-    <Layout title="로그인" className="mt-32 space-y-4 px-4">
+    <Layout withoutHeader title="로그인" className="mt-32 space-y-4 px-4">
       <div className="text-center">
         <h1 className="text-5xl font-bold text-purple-500">Mildvu</h1>
       </div>
