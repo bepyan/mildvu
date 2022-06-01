@@ -3,7 +3,7 @@ import React from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
 
 interface PersentInput {
-  register: UseFormRegisterReturn;
+  register?: UseFormRegisterReturn;
 }
 
 export default function PersentInput({ register }: PersentInput) {
