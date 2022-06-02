@@ -6,28 +6,8 @@ import {
   PreviewList,
 } from '@components/Editor';
 import Layout from '@components/Layout';
-import { editorState } from '@stores/editor';
-import { useState } from 'react';
-import { useResetRecoilState } from 'recoil';
-import { useUnload } from '@hooks';
-import Confirm from '@components/Confirm';
 
 export default () => {
-  const [show, setShow] = useState(false);
-
-  const openModal = () => setShow(true);
-  const reset = useResetRecoilState(editorState);
-  const { cancelUnload, confirmUnoad } = useUnload(openModal, reset);
-
-  const cancelModal = () => {
-    setShow(false);
-    cancelUnload();
-  };
-  const confirmModal = () => {
-    setShow(false);
-    confirmUnoad();
-  };
-
   return (
     <Layout title="만들기" className="relative">
       <EditorCarousel />
@@ -41,14 +21,6 @@ export default () => {
           <Button onClick={() => console.log('')}>저장</Button>
         </div>
       </div>
-
-      <Confirm
-        title="임시저장 하시겠습니까?"
-        show={show}
-        backdrop={cancelModal}
-        cancel={cancelModal}
-        confirm={confirmModal}
-      />
     </Layout>
   );
 };
