@@ -20,7 +20,7 @@ export function PreviewList() {
             <div
               draggable={false}
               onClick={stopPropagationClick(() => deleteContent(i))}
-              className="absolute -top-4 -right-4  h-8 w-8 bg-slate-500"
+              className="absolute -top-4 -right-4  z-50 h-8 w-8 bg-slate-500"
             />
           )}
           <div draggable={true} className="h-full w-full bg-stone-400">

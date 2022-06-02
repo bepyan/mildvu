@@ -1,4 +1,6 @@
+import Button from '@components/Button';
 import FileInput from '@components/FileInput';
+import { cls } from '@libs/client';
 import { editorState } from '@stores/editor';
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
@@ -21,9 +23,18 @@ export function ImageLoader({ className = '' }) {
     });
   }, [preview]);
 
+  const removePreview = () => {
+    setPreview('');
+  };
+
   return (
-    <div className={className}>
-      <FileInput setPreview={setPreview} />
+    <div className={cls(className, 'flex space-x-2')}>
+      <FileInput className="flex-1" setPreview={setPreview} />
+      <div>
+        <Button kind="secondary" onClick={removePreview}>
+          제거
+        </Button>
+      </div>
     </div>
   );
 }
