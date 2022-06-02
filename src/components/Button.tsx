@@ -36,7 +36,8 @@ export default function Button({
 
 const buttonKinds = {
   primary: 'text-white bg-purple-500 hover:bg-purple-600',
-  secondary: 'text-purple-500 ring-1 ring-purple-300 hover:ring-purple-400',
+  secondary: 'text-purple-800 bg-purple-100 hover:bg-purple-200',
+  outline: 'text-purple-500 ring-1 ring-purple-300 hover:ring-purple-400',
 };
 
 export type ButtonKind = keyof typeof buttonKinds;

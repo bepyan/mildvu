@@ -38,11 +38,11 @@ export default function Header({ className }: HeaderProps) {
         {isLoading ? (
           <></>
         ) : !user ? (
-          <Button kind="secondary" size="normal" onClick={navToLogin}>
+          <Button kind="outline" size="normal" onClick={navToLogin}>
             로그인 / 회원가입
           </Button>
         ) : (
-          <Button kind="secondary" size="normal" {...logout}>
+          <Button kind="outline" size="normal" {...logout}>
             로그아웃
           </Button>
         )}

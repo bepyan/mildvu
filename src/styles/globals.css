@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 a {
-  @apply cursor-pointer text-purple-500 hover:text-purple-400;
+  @apply cursor-pointer rounded-md text-purple-500 hover:text-purple-400 focus:font-bold focus:outline-none;
 }

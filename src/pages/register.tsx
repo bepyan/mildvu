@@ -58,7 +58,7 @@ export default () => {
           <p className="text-red-600">{registerMutation?.error?.message}</p>
         )}
         <Button loading={registerMutation.loading}>회원가입</Button>
-        <Button kind="secondary" onClick={navToLogin}>
+        <Button kind="outline" onClick={navToLogin}>
           로그인
         </Button>
       </form>
