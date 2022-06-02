@@ -69,7 +69,7 @@ export default function Carousel({ className, contentList, isDebug }: CarouselIn
                     }}
                   >
                     {isDebug && (
-                      <div className="relative h-full w-full bg-orange-500 text-xs opacity-50">
+                      <div className="relative h-full w-full bg-purple-500 bg-opacity-50 text-xs text-gray-700">
                         <span className="absolute -left-4 -top-4">
                           ({bt.startX}, {bt.startY})
                         </span>
