@@ -22,7 +22,8 @@
       "@components/*": ["./components/*"],
       "@hooks": ["./hooks"],
       "@libs/*": ["./libs/*"],
-      "@middlewares": ["./middlewares"]
+      "@middlewares": ["./middlewares"],
+      "@stores/*": ["./stores/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

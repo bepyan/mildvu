@@ -1,21 +1,10 @@
 import { cls, stopPropagationClick } from '@libs/client';
-import { ContentWithLinker } from '@types';
+import { useEditorState, usePreviewList } from '@stores/editor';
 
-export interface PreviewListProps {
-  currentIndex: number;
-  contentList: ContentWithLinker[];
-  addNewContent: () => void;
-  deleteContent: (index: number) => void;
-  selectContent: (index: number) => void;
-}
+export function PreviewList() {
+  const { contentList, currentIndex } = useEditorState();
+  const { addNewContent, deleteContent, selectContent } = usePreviewList();
 
-export default function PreviewList({
-  currentIndex,
-  contentList,
-  addNewContent,
-  deleteContent,
-  selectContent,
-}: PreviewListProps) {
   return (
     <div className="flex space-x-3">
       {contentList.map((content, i) => (

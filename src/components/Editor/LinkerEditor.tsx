@@ -12,11 +12,7 @@ interface LinkerEditorProps {
 
 const controlPos = (x: number) => Math.min(Math.max(+x, 0), 100);
 
-export default function LinkerEditor({
-  linker,
-  setLinker,
-  deleteLinker,
-}: LinkerEditorProps) {
+export function LinkerEditor({ linker, setLinker, deleteLinker }: LinkerEditorProps) {
   const { register, setValue, watch } = useForm<Linker>({ defaultValues: linker });
   const watchLinker = watch();
 
