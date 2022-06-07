@@ -1,14 +1,14 @@
 import Button from '@components/Button';
-import { useEditorState, useLinkerEditor } from '@stores/editor';
+import { useLinkerEditor, useLinkerEditorState } from '@stores/editor';
 import { LinkerEditor } from './LinkerEditor';
 
 export function LinkerEditorList() {
-  const { contentList, currentIndex } = useEditorState();
-  const { addNewLinker, deleteLinker, editLinker } = useLinkerEditor();
+  const { linkers } = useLinkerEditorState();
+  const { addNewLinker, editLinker, deleteLinker } = useLinkerEditor();
 
   return (
     <div className="space-y-4">
-      {contentList[currentIndex].linkers.map((linker, i) => {
+      {linkers.map((linker, i) => {
         return (
           <LinkerEditor
             key={i}

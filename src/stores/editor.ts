@@ -51,49 +51,44 @@ export const usePreviewList = () => {
 
 // ----------------------------------------------------------------
 
-export const useLinkerEditor = () => {
+export const useLinkerEditorState = () => {
   const [{ contentList, currentIndex }, setState] = useRecoilState(editorState);
 
-  const setContentList = (fn: (list: ContentWithLinker[]) => ContentWithLinker[]) => {
-    setState({
-      currentIndex,
-      contentList: fn([...contentList]),
-    });
+  return {
+    linkers: contentList[currentIndex].linkers,
+    setLinkers: (linkers: Linker[]) => {
+      setState({
+        currentIndex,
+        contentList: contentList.map((v, i) =>
+          i === currentIndex ? { ...v, linkers } : { ...v },
+        ),
+      });
+    },
   };
+};
+
+const dummyLinker: Linker = {
+  id: 0,
+  contentId: 0,
+  startX: 0,
+  endX: 0,
+  startY: 0,
+  endY: 0,
+  linkURL: '',
+};
+
+export const useLinkerEditor = () => {
+  const { linkers, setLinkers } = useLinkerEditorState();
 
   return {
     addNewLinker: () => {
-      setContentList((list) => {
-        list[currentIndex] = {
-          ...list[currentIndex],
-          linkers: [
-            ...list[currentIndex].linkers,
-            { id: 0, contentId: 0, startX: 0, endX: 0, startY: 0, endY: 0, linkURL: '' },
-          ],
-        };
-        return list;
-      });
+      setLinkers([...linkers, dummyLinker]);
     },
     deleteLinker: (index: number) => {
-      setContentList((list) => {
-        list[currentIndex] = {
-          ...list[currentIndex],
-          linkers: list[currentIndex].linkers.filter((_, i) => i !== index),
-        };
-        return list;
-      });
+      setLinkers(linkers.filter((_, i) => i !== index));
     },
     editLinker: (index: number, linker: Linker) => {
-      setContentList((list) => {
-        const targetLinkerList = [...list[currentIndex].linkers];
-        targetLinkerList[index] = linker;
-
-        list[currentIndex] = {
-          ...list[currentIndex],
-          linkers: targetLinkerList,
-        };
-        return list;
-      });
+      setLinkers(linkers.map((v, i) => (i === index ? linker : v)));
     },
   };
 };

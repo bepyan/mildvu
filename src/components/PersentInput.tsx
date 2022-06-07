@@ -2,11 +2,11 @@ import { cls } from '@libs/client';
 import React from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
 
-interface PersentInput {
+interface PersentInput extends React.ComponentProps<'input'> {
   register?: UseFormRegisterReturn;
 }
 
-export default function PersentInput({ register }: PersentInput) {
+export default function PersentInput(props: PersentInput) {
   return (
     <div
       className={cls(
@@ -16,7 +16,7 @@ export default function PersentInput({ register }: PersentInput) {
       )}
     >
       <input
-        {...register}
+        {...props}
         className={cls(
           'w-min appearance-none border-0 p-0 text-right focus:outline-none',
         )}
