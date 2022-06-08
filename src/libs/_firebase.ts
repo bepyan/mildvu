@@ -25,6 +25,9 @@ export const uploadImage = ({
   onFinish,
 }: {
   file: File;
+  /**
+   * 파일확장자까지 확장자 필요
+   */
   fileName?: string;
   onProgress?: (progress: number) => void;
   onFinish?: (downloadURL: string) => void;
@@ -43,7 +46,7 @@ export const uploadImage = ({
       onProgress?.(progress);
     },
     (error) => {
-      console.log(error);
+      console.error(error);
     },
     async () => {
       const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
