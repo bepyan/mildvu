@@ -1,3 +1,4 @@
+import { useMutation } from '@hooks';
 import { getDummyContent } from '@libs/client';
 import { Linker } from '@prisma/client';
 import { ContentWithLinker } from '@types';
@@ -16,6 +17,33 @@ export const editorState = atom<EditorState>({
 export const useEditorState = () => {
   const state = useRecoilValue(editorState);
   return state;
+};
+
+export const useCreateContent = () => {
+  const { contentList } = useEditorState();
+
+  const { mutate, ...rest } = useMutation({
+    method: 'POST',
+    url: '/api/magazines/create',
+  });
+
+  return {
+    ...rest,
+    create: () =>
+      mutate({
+        contentList: contentList.map((content, i) => ({
+          id: undefined,
+          magazineId: undefined,
+          index: i,
+          imageURL: content.imageURL,
+          linkers: content.linkers.map((linker) => ({
+            ...linker,
+            id: undefined,
+            contentId: undefined,
+          })),
+        })),
+      }),
+  };
 };
 
 // ----------------------------------------------------------------

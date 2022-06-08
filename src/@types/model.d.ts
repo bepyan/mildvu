@@ -2,7 +2,7 @@ import { Content, Linker, Magazine } from '@prisma/client';
 
 declare module '@types' {
   interface MagazineWithContent extends Magazine {
-    content: ContentWithLinker[];
+    contents: ContentWithLinker[];
   }
 
   interface ContentWithLinker extends Content {

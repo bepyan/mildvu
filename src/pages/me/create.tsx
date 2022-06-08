@@ -6,8 +6,11 @@ import {
   PreviewList,
 } from '@components/Editor';
 import Layout from '@components/Layout';
+import { useCreateContent } from '@stores/editor';
 
 export default () => {
+  const { create } = useCreateContent();
+
   return (
     <Layout title="만들기" className="relative">
       <EditorCarousel />
@@ -18,7 +21,7 @@ export default () => {
         <LinkerEditorList />
 
         <div className="mt-auto">
-          <Button onClick={() => console.log('')}>저장</Button>
+          <Button onClick={create}>저장</Button>
         </div>
       </div>
     </Layout>

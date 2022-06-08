@@ -2,17 +2,21 @@ import _prisma from '_prisma';
 import Button from '@components/Button';
 import Layout from '@components/Layout';
 import { withUserSessionSSR } from '@middlewares';
-import { SSRProps } from '@types';
+import { MagazineWithContent, SSRProps } from '@types';
 import { useRouter } from 'next/router';
+import { User } from '@prisma/client';
 
 export const getServerSideProps = withUserSessionSSR(async ({ user }) => {
   const magazines = await _prisma.magazine.findMany({
     where: { userId: user.id },
-    include: { content: true },
+    include: { contents: true },
   });
 
   return {
-    props: { user, magazines },
+    props: JSON.parse(JSON.stringify({ user, magazines })) as {
+      user: User;
+      magazines: MagazineWithContent[];
+    },
   };
 });
 
@@ -20,6 +24,8 @@ export default ({ user, magazines }: SSRProps<typeof getServerSideProps>) => {
   const router = useRouter();
 
   const navToCreate = () => router.push('/me/create');
+  const navToMyMagazine = () => router.push(`/@${user.publishKey}`);
+  const navToMagazine = (id: number) => router.push(`/@${user.publishKey}/${id}`);
 
   return (
     <Layout title="대시보드" className="relative">
@@ -28,7 +34,10 @@ export default ({ user, magazines }: SSRProps<typeof getServerSideProps>) => {
           <h1 className="text-xl font-bold text-purple-500">{user.name}</h1>
           <span>{user.publishKey}</span>
         </div>
-        <div className="ml-auto">
+        <div className="ml-auto flex items-end space-x-2">
+          <Button kind="secondary" size="normal" onClick={navToMyMagazine}>
+            내 매거진
+          </Button>
           <Button size="normal">설정</Button>
         </div>
       </div>
@@ -37,7 +46,16 @@ export default ({ user, magazines }: SSRProps<typeof getServerSideProps>) => {
         {!magazines.length ? (
           <div>생성한 매거진이 없습니다.</div>
         ) : (
-          magazines.map((v) => <div key={v.id}>{v.createdAt.toLocaleString()}</div>)
+          magazines.map((v) => (
+            <div
+              key={v.id}
+              className="flex cursor-pointer items-center rounded-md p-4 text-stone-700 hover:bg-stone-100"
+              onClick={() => navToMagazine(v.id)}
+            >
+              <span className="text-lg">매거진</span>
+              <div className="ml-4">{v.createdAt.toLocaleString().substring(0, 10)}</div>
+            </div>
+          ))
         )}
       </div>
 

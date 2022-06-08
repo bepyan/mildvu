@@ -1,15 +1,20 @@
-import { SSGProps } from '@types';
-import { GetStaticPropsContext } from 'next';
+import Layout from '@components/Layout';
+import { SSRProps } from '@types';
+import { GetServerSidePropsContext } from 'next';
 
-export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
+export const getServerSideProps = async ({ params }: GetServerSidePropsContext) => {
   const publishKey = (params!.publishKey + '').substring(1);
   const magazineId = params!.id + '';
 
   return {
-    props: {},
+    props: { publishKey, magazineId },
   };
 };
 
-export default ({}: SSGProps<typeof getStaticProps>) => {
-  return <div className="mt-32 px-4"></div>;
+export default ({ publishKey, magazineId }: SSRProps<typeof getServerSideProps>) => {
+  return (
+    <Layout title={publishKey} className="mt-32 px-4">
+      {magazineId}
+    </Layout>
+  );
 };
