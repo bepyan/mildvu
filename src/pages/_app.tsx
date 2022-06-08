@@ -4,8 +4,14 @@ import type { AppProps } from 'next/app';
 import { SWRConfig } from 'swr';
 import Head from 'next/head';
 import { RecoilRoot } from 'recoil';
+import { useEffect } from 'react';
+import { initFirebase } from '@libs/_firebase';
 
 function MyApp({ Component, pageProps }: AppProps) {
+  useEffect(() => {
+    initFirebase();
+  }, []);
+
   return (
     <RecoilRoot>
       <SWRConfig

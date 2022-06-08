@@ -8,16 +8,19 @@ interface FileForm {
 interface FileInputProps {
   className?: string;
   setPreview: (preview: string) => void;
+  setFile?: (file: File) => void;
 }
 
-export default function FileInput({ className, setPreview }: FileInputProps) {
+export default function FileInput({ className, setPreview, setFile }: FileInputProps) {
   const { register, resetField, watch } = useForm<FileForm>();
   const image = watch('image');
 
   useEffect(() => {
     if (image && image.length > 0) {
       const file = image[0];
+
       setPreview(URL.createObjectURL(file));
+      setFile?.(file);
       resetField('image');
     }
   }, [image, resetField, setPreview]);
