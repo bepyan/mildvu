@@ -18,11 +18,10 @@ export const initFirebase = () => {
   const storage = getStorage(app);
 };
 
-export const uploadImage = ({
+export const uploadImage = async ({
   file,
   fileName,
   onProgress,
-  onFinish,
 }: {
   file: File;
   /**
@@ -30,7 +29,6 @@ export const uploadImage = ({
    */
   fileName?: string;
   onProgress?: (progress: number) => void;
-  onFinish?: (downloadURL: string) => void;
 }) => {
   const storage = getStorage();
   const storageRef = ref(storage, `images/${fileName ?? file.name}`);
@@ -48,9 +46,9 @@ export const uploadImage = ({
     (error) => {
       console.error(error);
     },
-    async () => {
-      const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-      onFinish?.(downloadURL);
-    },
   );
+
+  const snapshot = await uploadTask;
+  const downloadURL = await getDownloadURL(snapshot.ref);
+  return downloadURL;
 };

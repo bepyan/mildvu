@@ -1,5 +1,6 @@
 import { useMutation } from '@hooks';
-import { getDummyContent } from '@libs/client';
+import { getDummyContent, previewToFile } from '@libs/client';
+import { uploadImage } from '@libs/_firebase';
 import { Linker } from '@prisma/client';
 import { ContentWithLinker } from '@types';
 import { atom, useRecoilState, useRecoilValue } from 'recoil';
@@ -29,9 +30,30 @@ export const useCreateContent = () => {
 
   return {
     ...rest,
-    create: () =>
+    create: async () => {
+      const uploadedContentList = await Promise.all(
+        contentList.map(async (content) => {
+          const isLocalImage = content.imageURL.startsWith('blob');
+          if (!isLocalImage) return content;
+
+          const file = await previewToFile({ preview: content.imageURL });
+          if (!file) {
+            alert('파일 업로드에 오류가 발생했습니다.');
+            return content;
+          }
+
+          const url = await uploadImage({
+            file,
+            onProgress: (progress) => {
+              console.log(content.imageURL, progress);
+            },
+          });
+          return { ...content, imageURL: url };
+        }),
+      );
+
       mutate({
-        contentList: contentList.map((content, i) => ({
+        contentList: uploadedContentList.map((content, i) => ({
           id: undefined,
           magazineId: undefined,
           index: i,
@@ -42,7 +64,8 @@ export const useCreateContent = () => {
             contentId: undefined,
           })),
         })),
-      }),
+      });
+    },
   };
 };
 

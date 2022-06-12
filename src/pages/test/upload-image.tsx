@@ -14,12 +14,8 @@ export default () => {
     const file = await previewToFile({ preview });
     if (!file) return alert('파일 업로드에 오류가 발생했습니다.');
 
-    uploadImage({
-      file,
-      onFinish: (url) => {
-        window.open(url, '_blank');
-      },
-    });
+    const url = await uploadImage({ file });
+    window.open(url, '_blank');
   };
 
   const download = async () => {
