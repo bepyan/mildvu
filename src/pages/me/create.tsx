@@ -4,12 +4,21 @@ import {
   ImageLoader,
   LinkerEditorList,
   PreviewList,
+  EditorUploadModal,
 } from '@components/Editor';
 import Layout from '@components/Layout';
+import { withUserSessionSSR } from '@middlewares';
 import { useCreateContent } from '@stores/editor';
+import { SSRProps } from '@types';
 
-export default () => {
-  const { create } = useCreateContent();
+export const getServerSideProps = withUserSessionSSR(({ user }) => {
+  return {
+    props: { user },
+  };
+});
+
+export default ({ user }: SSRProps<typeof getServerSideProps>) => {
+  const { create } = useCreateContent(user);
 
   return (
     <Layout title="만들기" className="relative">
@@ -24,6 +33,8 @@ export default () => {
           <Button onClick={create}>저장</Button>
         </div>
       </div>
+
+      <EditorUploadModal />
     </Layout>
   );
 };

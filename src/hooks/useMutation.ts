@@ -45,6 +45,7 @@ export const useMutation = <T = any>({
       });
       setState((prev) => ({ ...prev, data }));
       onSuccess?.(data);
+      return data as T;
     } catch (error: any) {
       const message = error.message;
 

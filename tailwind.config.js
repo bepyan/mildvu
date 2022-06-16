@@ -7,6 +7,15 @@ module.exports = {
       fontFamily: {
         sans: ['Noto Sans KR', ...defaultTheme.fontFamily.sans],
       },
+      keyframes: {
+        wiggle: {
+          '0%, 100%': { transform: 'rotate(-1deg)' },
+          '50%': { transform: 'rotate(1deg)' },
+        },
+      },
+      animation: {
+        wiggle: 'wiggle 200ms ease-in-out',
+      },
     },
   },
   plugins: [require('@tailwindcss/forms')],

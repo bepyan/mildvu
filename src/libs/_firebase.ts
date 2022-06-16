@@ -28,7 +28,7 @@ export const uploadImage = async ({
    * 파일확장자까지 확장자 필요
    */
   fileName?: string;
-  onProgress?: (progress: number) => void;
+  onProgress?: (name: string, progress: number) => void;
 }) => {
   const storage = getStorage();
   const storageRef = ref(storage, `images/${fileName ?? file.name}`);
@@ -41,7 +41,7 @@ export const uploadImage = async ({
     'state_changed',
     (snapshot) => {
       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100 || 0;
-      onProgress?.(progress);
+      onProgress?.(snapshot.ref.name, progress);
     },
     (error) => {
       console.error(error);

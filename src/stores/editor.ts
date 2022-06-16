@@ -1,9 +1,10 @@
 import { useMutation } from '@hooks';
-import { getDummyContent, previewToFile } from '@libs/client';
+import { getCurrentDate, getDummyContent, hash, previewToFile } from '@libs/client';
 import { uploadImage } from '@libs/_firebase';
-import { Linker } from '@prisma/client';
+import { Linker, Magazine, User } from '@prisma/client';
 import { ContentWithLinker } from '@types';
-import { atom, useRecoilState, useRecoilValue } from 'recoil';
+import { useRouter } from 'next/router';
+import { atom, useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 
 interface EditorState {
   currentIndex: number;
@@ -20,23 +21,82 @@ export const useEditorState = () => {
   return state;
 };
 
-export const useCreateContent = () => {
-  const { contentList } = useEditorState();
+interface UploadEditorState {
+  show: boolean;
+  loading: boolean;
+}
 
-  const { mutate, ...rest } = useMutation({
+export const uploadEditorState = atom<UploadEditorState>({
+  key: 'uploadEditorState',
+  default: { show: false, loading: false },
+});
+
+let uploadImgs: { [key: string]: number } = {};
+
+export const useUploadEditorState = () => {
+  const [{ show, loading }, setState] = useRecoilState(uploadEditorState);
+
+  return {
+    show,
+    loading,
+    imageList: Object.keys(uploadImgs).map((key) => ({
+      name: key,
+      progress: uploadImgs[key],
+    })),
+    open: () => {
+      uploadImgs = {};
+      setState({ show: true, loading: true });
+    },
+    close: () => {
+      setState({ show: false, loading: false });
+    },
+    setLoading: (loading: boolean) => {
+      setState({ show: true, loading });
+    },
+    updateImage: (image: string, progress: number) => {
+      uploadImgs[image] = progress;
+      setState({ show: true, loading: true });
+    },
+  };
+};
+
+// ----------------------------------------------------------------
+
+export const useCreateContent = (user: User) => {
+  const router = useRouter();
+  const { contentList } = useRecoilValue(editorState);
+  const reset = useResetRecoilState(editorState);
+  const { open, close, updateImage, setLoading } = useUploadEditorState();
+
+  const { mutate, ...rest } = useMutation<{ magazine: Magazine }>({
     method: 'POST',
     url: '/api/magazines/create',
+    onSuccess: ({ magazine }) => {
+      setLoading(false);
+      setTimeout(() => {
+        router.push(`/@${user.publishKey}/${magazine.id}`);
+        reset();
+        close();
+      }, 3000);
+    },
   });
 
   return {
     ...rest,
     create: async () => {
+      open();
+
       const uploadedContentList = await Promise.all(
-        contentList.map(async (content) => {
+        contentList.map(async (content, i) => {
           const isLocalImage = content.imageURL.startsWith('blob');
           if (!isLocalImage) return content;
 
-          const file = await previewToFile({ preview: content.imageURL });
+          const file = await previewToFile({
+            preview: content.imageURL,
+            fileName: `${user.publishKey}/${getCurrentDate()}-${i}-${hash(
+              content.imageURL,
+            )}`,
+          });
           if (!file) {
             alert('파일 업로드에 오류가 발생했습니다.');
             return content;
@@ -44,15 +104,15 @@ export const useCreateContent = () => {
 
           const url = await uploadImage({
             file,
-            onProgress: (progress) => {
-              console.log(content.imageURL, progress);
+            onProgress: (name, progress) => {
+              updateImage(name, progress);
             },
           });
           return { ...content, imageURL: url };
         }),
       );
 
-      mutate({
+      await mutate({
         contentList: uploadedContentList.map((content, i) => ({
           id: undefined,
           magazineId: undefined,

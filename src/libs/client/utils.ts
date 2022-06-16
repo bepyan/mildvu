@@ -21,3 +21,23 @@ export const getDummyContent = (index: number): ContentWithLinker => {
     linkers: [],
   };
 };
+
+export const hash = (target: string) => {
+  let code = 0;
+  if (target.length === 0) return code;
+
+  for (let i = 0; i < target.length; i++) {
+    const chr = target.charCodeAt(i);
+    code = (code << 5) - code + chr;
+    code |= 0;
+  }
+  return code;
+};
+
+export const getCurrentDate = (date: Date = new Date()) => {
+  return date.toISOString().substring(0, 10);
+};
+
+export const getFullDate = (date: Date = new Date()) => {
+  return date.toLocaleString().substring(0, 19).replace('T', ' ');
+};

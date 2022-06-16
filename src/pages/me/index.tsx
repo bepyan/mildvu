@@ -5,6 +5,7 @@ import { withUserSessionSSR } from '@middlewares';
 import { MagazineWithContent, SSRProps } from '@types';
 import { useRouter } from 'next/router';
 import { User } from '@prisma/client';
+import { getFullDate } from '@libs/client';
 
 export const getServerSideProps = withUserSessionSSR(async ({ user }) => {
   const magazines = await _prisma.magazine.findMany({
@@ -49,7 +50,7 @@ export default ({ user, magazines }: SSRProps<typeof getServerSideProps>) => {
         </div>
       </div>
 
-      <div className="mt-8">
+      <div className="mb-24 mt-8">
         {!magazines.length ? (
           <div>생성한 매거진이 없습니다.</div>
         ) : (
@@ -60,13 +61,13 @@ export default ({ user, magazines }: SSRProps<typeof getServerSideProps>) => {
               onClick={() => navToMagazine(v.id)}
             >
               <span className="text-lg">매거진</span>
-              <div className="ml-4">{v.createdAt.toLocaleString().substring(0, 10)}</div>
+              <div className="ml-4">{getFullDate(v.createdAt)}</div>
             </div>
           ))
         )}
       </div>
 
-      <div className="absolute inset-x-0 bottom-8">
+      <div className="fixed inset-x-0 bottom-8 mx-auto max-w-xl">
         <Button onClick={navToCreate}>매거진 생성하기</Button>
       </div>
     </Layout>
