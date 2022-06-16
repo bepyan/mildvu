@@ -50,7 +50,7 @@ model Linker {
   startY    Float
   endX      Float
   endY      Float
-  linkURL   String
+  linkURL   String  @db.MediumText
   content   Content @relation(fields: [contentId], references: [id], onDelete: Cascade)
   contentId Int
 
