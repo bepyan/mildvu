@@ -19,7 +19,7 @@ export default () => {
   const registerMutation = useMutation({
     url: '/api/users/register',
     onSuccess: () => {
-      router.replace('/dashboard');
+      router.replace('/me');
     },
   });
 
