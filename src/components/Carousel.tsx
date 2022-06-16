@@ -25,8 +25,8 @@ export default function Carousel({ className, contentList, isDebug }: CarouselIn
   const openPage = (url: string) => {
     if (!url) return alert('유효하지 않는 링크입니다.');
 
-    const isFullUrl = url.startsWith('http://');
-    window.open(isFullUrl ? url : `http://${url}`, '_blank');
+    const isFullUrl = url.startsWith('https://');
+    window.open(isFullUrl ? url : `https://${url}`, '_blank');
   };
 
   return (
