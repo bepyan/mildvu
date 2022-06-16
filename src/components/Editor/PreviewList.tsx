@@ -1,3 +1,4 @@
+import { XCircleIcon } from '@heroicons/react/solid';
 import { cls, stopPropagationClick } from '@libs/client';
 import { useEditorState, usePreviewList } from '@stores/editor';
 
@@ -20,12 +21,18 @@ export function PreviewList() {
             <div
               draggable={false}
               onClick={stopPropagationClick(() => deleteContent(i))}
-              className="absolute -top-4 -right-4  z-50 h-8 w-8 bg-slate-500"
-            />
+              className="absolute inset-4 z-50 h-8 w-8 text-purple-700 hover:text-purple-500"
+            >
+              <XCircleIcon />
+            </div>
           )}
           <div draggable={true} className="h-full w-full bg-stone-400">
             {content.imageURL && (
-              <img src={content.imageURL} alt="preview" className="h-full w-full" />
+              <img
+                src={content.imageURL}
+                alt="preview"
+                className="h-full w-full object-cover"
+              />
             )}
           </div>
         </div>

@@ -1,6 +1,7 @@
 import PersentInput from '@components/PersentInput';
 import { cls } from '@libs/client';
 import { Linker } from '@prisma/client';
+import { XCircleIcon } from '@heroicons/react/solid';
 import React, { useEffect, useState } from 'react';
 
 interface LinkerEditorProps {
@@ -53,8 +54,10 @@ export const LinkerEditor = ({ linker, setLinker, deleteLinker }: LinkerEditorPr
 
       <div
         onClick={deleteLinker}
-        className="absolute -right-2 -top-4 h-8 w-8 cursor-pointer rounded-md bg-purple-300"
-      />
+        className="absolute -right-2 -top-4 h-8 w-8 cursor-pointer rounded-md text-purple-300 hover:text-purple-400"
+      >
+        <XCircleIcon />
+      </div>
     </div>
   );
 };
