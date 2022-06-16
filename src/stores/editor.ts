@@ -181,10 +181,10 @@ export const useLinkerEditorState = () => {
 const dummyLinker: Linker = {
   id: 0,
   contentId: 0,
-  startX: 0,
-  endX: 0,
-  startY: 0,
-  endY: 0,
+  startX: 10,
+  endX: 90,
+  startY: 85,
+  endY: 95,
   linkURL: '',
 };
 
