@@ -13,7 +13,14 @@ export const getServerSideProps = withUserSessionSSR(async ({ user }) => {
   });
 
   return {
-    props: JSON.parse(JSON.stringify({ user, magazines })) as {
+    props: JSON.parse(
+      JSON.stringify({
+        user,
+        magazines: magazines.sort(
+          (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+        ),
+      }),
+    ) as {
       user: User;
       magazines: MagazineWithContent[];
     },
@@ -59,7 +66,7 @@ export default ({ user, magazines }: SSRProps<typeof getServerSideProps>) => {
         )}
       </div>
 
-      <div className="absolute inset-x-0 bottom-32">
+      <div className="absolute inset-x-0 bottom-8">
         <Button onClick={navToCreate}>매거진 생성하기</Button>
       </div>
     </Layout>
