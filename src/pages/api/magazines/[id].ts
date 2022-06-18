@@ -24,4 +24,15 @@ export default withHandler({
       res.status(200).json({ magazine });
     },
   },
+  private: {
+    DELETE: async (req, res) => {
+      const { id } = req.query;
+
+      await _prisma.magazine.delete({
+        where: { id: +id },
+      });
+
+      res.status(200).json({});
+    },
+  },
 });

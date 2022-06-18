@@ -4,32 +4,21 @@ import Layout from '@components/Layout';
 import { withUserSessionSSR } from '@middlewares';
 import { MagazineWithContent, SSRProps } from '@types';
 import { useRouter } from 'next/router';
-import { User } from '@prisma/client';
 import MagazineMyItem from '@components/MagazineMyItem';
+import useSWR from 'swr';
 
 export const getServerSideProps = withUserSessionSSR(async ({ user }) => {
-  const magazines = await _prisma.magazine.findMany({
-    where: { userId: user.id },
-    include: { contents: true },
-  });
-
   return {
-    props: JSON.parse(
-      JSON.stringify({
-        user,
-        magazines: magazines.sort(
-          (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-        ),
-      }),
-    ) as {
-      user: User;
-      magazines: MagazineWithContent[];
-    },
+    props: { user },
   };
 });
 
-export default ({ user, magazines }: SSRProps<typeof getServerSideProps>) => {
+export default ({ user }: SSRProps<typeof getServerSideProps>) => {
   const router = useRouter();
+
+  const { data } = useSWR<{ magazines: MagazineWithContent[] }>(
+    '/api/users/me/magazines',
+  );
 
   const navToCreate = () => router.push('/me/create');
   const navToMyMagazine = () => router.push(`/@${user.publishKey}`);
@@ -50,10 +39,19 @@ export default ({ user, magazines }: SSRProps<typeof getServerSideProps>) => {
       </div>
 
       <div className="mb-24 mt-8">
-        {!magazines.length ? (
+        {!data ? (
+          <div>로딩중...</div>
+        ) : !data.magazines.length ? (
           <div>생성한 매거진이 없습니다.</div>
         ) : (
-          magazines.map((v) => <MagazineMyItem key={v.id} item={{ ...v, user }} />)
+          <>
+            <div>총 {data.magazines.length}개의 메거진이 있습니다.</div>
+            <div className="mt-4">
+              {data.magazines.map((v) => (
+                <MagazineMyItem key={v.id} item={{ ...v, user }} />
+              ))}
+            </div>
+          </>
         )}
       </div>
 
