@@ -46,7 +46,7 @@ export default function Carousel({ className, contentList, isDebug }: CarouselIn
                     draggable={false}
                     src={content.imageURL}
                     alt="card-img"
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-contain"
                   />
                 )}
 
