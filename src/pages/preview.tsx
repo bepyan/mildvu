@@ -31,7 +31,7 @@ const mockContent: ContentWithLinker[] = [
 
 export default () => {
   return (
-    <Layout title="preview" withoutHeader className="mb-8">
+    <Layout title="preview" withoutHeader>
       <Carousel contentList={mockContent} />
     </Layout>
   );

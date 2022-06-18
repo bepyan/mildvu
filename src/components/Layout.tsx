@@ -28,7 +28,7 @@ export default function Layout({
       </Head>
 
       <Header className={cls(withoutHeader && 'mobile:hidden')} />
-      <div className={cls('flex flex-1 flex-col', className)}>{children}</div>
+      <div className={cls('relative flex flex-1 flex-col', className)}>{children}</div>
     </main>
   );
 }

@@ -1,3 +1,4 @@
+import { DotsHorizontalIcon } from '@heroicons/react/solid';
 import { useLogout, useUser } from '@hooks';
 import { cls } from '@libs/client';
 import Link from 'next/link';
@@ -36,7 +37,9 @@ export default function Header({ className }: HeaderProps) {
 
       <div className="ml-auto flex items-end">
         {isLoading ? (
-          <></>
+          <span className="text-purple-500">
+            <DotsHorizontalIcon fontSize={18} />
+          </span>
         ) : !user ? (
           <Button kind="outline" size="normal" onClick={navToLogin}>
             로그인 / 회원가입
