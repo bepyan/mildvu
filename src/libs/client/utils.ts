@@ -35,7 +35,7 @@ export const hash = (target: string) => {
 };
 
 export const getCurrentDate = (date: Date = new Date()) => {
-  return date.toISOString().substring(0, 10);
+  return date.toLocaleString().substring(0, 10);
 };
 
 export const getFullDate = (date: Date = new Date()) => {

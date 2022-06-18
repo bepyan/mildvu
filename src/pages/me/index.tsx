@@ -5,8 +5,7 @@ import { withUserSessionSSR } from '@middlewares';
 import { MagazineWithContent, SSRProps } from '@types';
 import { useRouter } from 'next/router';
 import { User } from '@prisma/client';
-import { getFullDate } from '@libs/client';
-import MagazineItem from '@components/MagazineItem';
+import MagazineMyItem from '@components/MagazineMyItem';
 
 export const getServerSideProps = withUserSessionSSR(async ({ user }) => {
   const magazines = await _prisma.magazine.findMany({
@@ -54,7 +53,7 @@ export default ({ user, magazines }: SSRProps<typeof getServerSideProps>) => {
         {!magazines.length ? (
           <div>생성한 매거진이 없습니다.</div>
         ) : (
-          magazines.map((v) => <MagazineItem key={v.id} item={{ ...v, user }} />)
+          magazines.map((v) => <MagazineMyItem key={v.id} item={{ ...v, user }} />)
         )}
       </div>
 
