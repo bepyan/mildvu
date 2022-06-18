@@ -3,7 +3,7 @@ import _prisma from '_prisma';
 import { User } from '@prisma/client';
 import { MagazineWithContent, SSGProps } from '@types';
 import { GetStaticPaths, GetStaticPropsContext } from 'next';
-import { useRouter } from 'next/router';
+import MagazineItem from '@components/MagazineItem';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const users = await _prisma.user.findMany({
@@ -31,25 +31,27 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 
   const magazines = await _prisma.magazine.findMany({
     where: { userId: user.id },
-    include: { contents: true },
+    include: { contents: true, user: true },
   });
 
   return {
     props: {
       user: JSON.parse(JSON.stringify(user)) as User,
-      magazines: JSON.parse(JSON.stringify(magazines)) as MagazineWithContent[],
+      magazines: JSON.parse(JSON.stringify(magazines)) as (MagazineWithContent & {
+        user: User;
+      })[],
     },
   };
 };
 
 export default ({ user, magazines }: SSGProps<typeof getStaticProps>) => {
   return (
-    <Layout title={user.publishKey} className="relative h-full px-4 pt-32">
+    <Layout title={user.publishKey}>
       <div className="mt-12">
         {!magazines.length ? (
           <div>생성한 매거진이 없습니다.</div>
         ) : (
-          magazines.map((v) => <div key={v.id}>{v.createdAt.toLocaleString()}</div>)
+          magazines.map((v) => <MagazineItem key={v.id} item={v} />)
         )}
       </div>
     </Layout>

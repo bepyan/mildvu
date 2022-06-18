@@ -6,6 +6,7 @@ import { MagazineWithContent, SSRProps } from '@types';
 import { useRouter } from 'next/router';
 import { User } from '@prisma/client';
 import { getFullDate } from '@libs/client';
+import MagazineItem from '@components/MagazineItem';
 
 export const getServerSideProps = withUserSessionSSR(async ({ user }) => {
   const magazines = await _prisma.magazine.findMany({
@@ -33,7 +34,6 @@ export default ({ user, magazines }: SSRProps<typeof getServerSideProps>) => {
 
   const navToCreate = () => router.push('/me/create');
   const navToMyMagazine = () => router.push(`/@${user.publishKey}`);
-  const navToMagazine = (id: number) => router.push(`/@${user.publishKey}/${id}`);
 
   return (
     <Layout title="대시보드" className="relative">
@@ -54,16 +54,7 @@ export default ({ user, magazines }: SSRProps<typeof getServerSideProps>) => {
         {!magazines.length ? (
           <div>생성한 매거진이 없습니다.</div>
         ) : (
-          magazines.map((v) => (
-            <div
-              key={v.id}
-              className="flex cursor-pointer items-center rounded-md p-4 text-stone-700 hover:bg-stone-100"
-              onClick={() => navToMagazine(v.id)}
-            >
-              <span className="text-lg">매거진</span>
-              <div className="ml-4">{getFullDate(v.createdAt)}</div>
-            </div>
-          ))
+          magazines.map((v) => <MagazineItem key={v.id} item={{ ...v, user }} />)
         )}
       </div>
 
