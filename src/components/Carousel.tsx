@@ -20,14 +20,8 @@ export default function Carousel({ className, contentList, isDebug }: CarouselIn
     movePrev,
     mouseDownHandler,
     touchStartHandler,
+    openPage,
   } = useCarousel({ slideWidth, slideLength: contentList.length });
-
-  const openPage = (url: string) => {
-    if (!url) return alert('유효하지 않는 링크입니다.');
-
-    const isFullUrl = url.startsWith('https://');
-    window.open(isFullUrl ? url : `https://${url}`, '_blank');
-  };
 
   return (
     <div className={cls('relative h-full overflow-hidden', className)}>
@@ -42,7 +36,7 @@ export default function Carousel({ className, contentList, isDebug }: CarouselIn
           return (
             <div key={i} className="w-full">
               <div
-                className="relative h-full max-h-[700px] select-none"
+                className={cls('relative h-full select-none')}
                 style={{ width: slideWidth }}
               >
                 {!content.imageURL ? (

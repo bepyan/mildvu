@@ -16,6 +16,9 @@ module.exports = {
       animation: {
         wiggle: 'wiggle 200ms ease-in-out',
       },
+      screens: {
+        mobile: { max: '1024px' },
+      },
     },
   },
   plugins: [require('@tailwindcss/forms')],

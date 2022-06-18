@@ -6,7 +6,7 @@ export function EditorCarousel() {
 
   return (
     <div className="absolute -left-40 h-full">
-      <Carousel isDebug contentList={contentList} className="w-[360px]" />
+      <Carousel isDebug contentList={contentList} className="h-[720px] w-[360px]" />
     </div>
   );
 }

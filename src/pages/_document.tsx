@@ -9,7 +9,7 @@ export default function MyDocument() {
           rel="stylesheet"
         />
       </Head>
-      <body>
+      <body className="overflow-hidden">
         <Main />
         <NextScript />
       </body>

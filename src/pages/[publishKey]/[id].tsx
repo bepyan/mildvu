@@ -38,7 +38,7 @@ export const getServerSideProps = async ({ params }: GetServerSidePropsContext) 
 
 export default ({ publishKey, magazine }: SSRProps<typeof getServerSideProps>) => {
   return (
-    <Layout title={publishKey}>
+    <Layout title={publishKey} withoutHeader>
       <Carousel contentList={magazine.contents} />
     </Layout>
   );

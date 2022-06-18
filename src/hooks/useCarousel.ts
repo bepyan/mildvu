@@ -88,5 +88,11 @@ export const useCarousel = ({ slideWidth, slideLength }: useCarouselProps) => {
         },
       );
     },
+    openPage: (url: string) => {
+      if (!url) return alert('유효하지 않는 링크입니다.');
+
+      const isFullUrl = url.startsWith('https://');
+      window.open(isFullUrl ? url : `https://${url}`, '_blank');
+    },
   };
 };
