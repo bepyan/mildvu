@@ -16,6 +16,7 @@ model User {
   password   String
   email      String?
   avatar     String?
+  desc       String?    @db.MediumText
   certified  Boolean    @default(false)
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt

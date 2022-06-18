@@ -22,6 +22,7 @@ export default ({ user }: SSRProps<typeof getServerSideProps>) => {
 
   const navToCreate = () => router.push('/me/create');
   const navToMyMagazine = () => router.push(`/@${user.publishKey}`);
+  const navToSetting = () => router.push('/me/settings');
 
   return (
     <Layout title="대시보드" className="relative">
@@ -34,7 +35,9 @@ export default ({ user }: SSRProps<typeof getServerSideProps>) => {
           <Button kind="secondary" size="normal" onClick={navToMyMagazine}>
             내 매거진
           </Button>
-          <Button size="normal">설정</Button>
+          <Button size="normal" onClick={navToSetting}>
+            설정
+          </Button>
         </div>
       </div>
 

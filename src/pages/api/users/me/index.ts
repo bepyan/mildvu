@@ -17,4 +17,20 @@ export default withHandler({
       res.json({ user });
     }),
   },
+  private: {
+    PUT: async (req, res) => {
+      const user = req.session.user!;
+      const desc = req.body.desc as string;
+
+      const updatedUser = await _prisma.user.update({
+        where: { id: user.id },
+        data: { desc },
+      });
+
+      req.session.user = updatedUser;
+      await req.session.save();
+
+      res.status(200).json({ user: updatedUser });
+    },
+  },
 });

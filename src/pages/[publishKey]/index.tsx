@@ -47,7 +47,14 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 export default ({ user, magazines }: SSGProps<typeof getStaticProps>) => {
   return (
     <Layout title={user.publishKey}>
-      <div className="mt-12">
+      <div className="mt-4 flex items-end rounded-xl p-6 ring-1 ring-purple-300">
+        <div>
+          <h1 className="text-xl font-bold text-purple-500">{user.name}</h1>
+          <span className="text-gray-700">{user.desc}</span>
+        </div>
+      </div>
+
+      <div className="mt-4">
         {!magazines.length ? (
           <div>생성한 매거진이 없습니다.</div>
         ) : (
