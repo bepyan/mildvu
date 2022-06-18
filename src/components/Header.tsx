@@ -30,7 +30,7 @@ export default function Header({ className }: HeaderProps) {
           <></>
         ) : (
           <>
-            <Link href="/me">내 매거진</Link>
+            <Link href="/me">내 매거진 관리</Link>
           </>
         )}
       </div>
