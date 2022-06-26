@@ -10,7 +10,7 @@ const clientXmapper = {
   touch: (e: any) => e.changedTouches[0].clientX,
 };
 
-const SLIDE_MOVE_MIN_X = 150;
+const SLIDE_MOVE_MIN_X = 50;
 
 export const useCarousel = ({ slideWidth, slideLength }: useCarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
