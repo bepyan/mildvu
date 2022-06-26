@@ -24,7 +24,7 @@ export default function Carousel({ className, contentList, isDebug }: CarouselIn
   } = useCarousel({ slideWidth, slideLength: contentList.length });
 
   return (
-    <div className={cls('relative h-full overflow-hidden', className)}>
+    <div className={cls('relative h-full overflow-hidden bg-neutral-900', className)}>
       <div
         ref={sliderRef}
         className="absolute flex h-full w-full"
